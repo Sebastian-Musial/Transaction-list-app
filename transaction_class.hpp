@@ -29,19 +29,19 @@ class Transaction {
         }
 
         //Set
-        std::string setName(std::string T_name) {
+        void setName(std::string T_name) {
             name = T_name;
         }
         
-        double setAmount(double T_amount) {
+        void setAmount(double T_amount) {
             amount = T_amount;
         }
 
-        std::string setCategory(std::string T_category) {
+        void setCategory(std::string T_category) {
             category = T_category;
         }
         
-        std::string setdate(std::string T_date) {
+        void setdate(std::string T_date) {
             date = T_date;
         }
 
