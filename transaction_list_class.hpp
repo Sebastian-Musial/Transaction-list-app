@@ -57,6 +57,13 @@ class Transaction_list {
             list.erase(list.begin() + i);
         }
 
+        void modifyTransaction(int i, std::string T_name, std::string T_amount, std::string T_date, std::string T_category) {
+            list[i].modifyTransaction(T_name, T_amount, T_date, T_category);
+        }
+        void modifyTransacion(int i, std::string T_name, double T_amount, std::string T_date, std::string T_category) {
+            list[i].modifyTransaction(T_name, T_amount, T_date, T_category);
+        }
+
     private:
         int size = 0;
         std::vector<Transaction> list {}; 
