@@ -37,7 +37,7 @@ class Transaction_list {
                 list.push_back(Transaction(T_name, T_amount, T_date, T_category));
             }
             catch(Transaction::Errors Transaction_Validation_Error) {
-                std::cout<<"TRANSAKCJA NIE ZOSTALA DODANA DO LISTY - TRANSACTION HAS NOT ADDED TO THE LIST";
+                std::cout<<"TRANSAKCJA NIE ZOSTALA DODANA DO LISTY - TRANSACTION HAS NOT ADDED TO THE LIST"<<std::endl;
             }
         }
         void addTransaction(std::string T_name, std::string T_amount, std::string T_date, std::string T_category) {
@@ -45,8 +45,16 @@ class Transaction_list {
                 list.push_back(Transaction(T_name, T_amount, T_date, T_category));
             }
             catch(Transaction::Errors Transaction_Validation_Error) {
-                std::cout<<"TRANSAKCJA NIE ZOSTALA DODANA DO LISTY - TRANSACTION HAS NOT ADDED TO THE LIST";    
+                std::cout<<"TRANSAKCJA NIE ZOSTALA DODANA DO LISTY - TRANSACTION HAS NOT ADDED TO THE LIST"<<std::endl;    
             }
+        }
+
+        void deleteTransaction(int i) {
+            if(i < 0 || i > list.size()) {
+                std::cout<<"Podana transakcja do usuniecia jest nie prawidlowa - Transaction to delete is not correct"<<std::endl;
+                return;
+            }
+            list.erase(list.begin() + i);
         }
 
     private:
