@@ -45,7 +45,8 @@ class Transaction {
             date = T_date;
         }
 
-        void showTransaction() {
+        //--------
+        void showTransaction() const {
             std::cout<<std::setw(26)<<name<<" | "<<std::setw(10)<<amount<<" | "<<std::setw(10)<<date<<" | "<<std::setw(26)<<category<<std::endl;
         }
 
