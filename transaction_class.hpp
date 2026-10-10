@@ -2,7 +2,7 @@
 
 #include <string>
 #include <iostream>
-
+#include <iomanip> 
 
 class Transaction {
     public:
@@ -43,6 +43,10 @@ class Transaction {
         
         void setdate(std::string T_date) {
             date = T_date;
+        }
+
+        void showTransaction() {
+            std::cout<<std::setw(26)<<name<<" | "<<std::setw(10)<<amount<<" | "<<std::setw(10)<<date<<" | "<<std::setw(26)<<category<<std::endl;
         }
 
     private:
