@@ -32,6 +32,23 @@ class Transaction_list {
             }
         }
 
+        void addTransaction(std::string T_name, double T_amount, std::string T_date, std::string T_category) {
+            try {
+                list.push_back(Transaction(T_name, T_amount, T_date, T_category));
+            }
+            catch(Transaction::Errors Transaction_Validation_Error) {
+                std::cout<<"TRANSAKCJA NIE ZOSTALA DODANA DO LISTY - TRANSACTION HAS NOT ADDED TO THE LIST";
+            }
+        }
+        void addTransaction(std::string T_name, std::string T_amount, std::string T_date, std::string T_category) {
+            try {
+                list.push_back(Transaction(T_name, T_amount, T_date, T_category));
+            }
+            catch(Transaction::Errors Transaction_Validation_Error) {
+                std::cout<<"TRANSAKCJA NIE ZOSTALA DODANA DO LISTY - TRANSACTION HAS NOT ADDED TO THE LIST";    
+            }
+        }
+
     private:
         int size = 0;
         std::vector<Transaction> list {}; 
