@@ -69,6 +69,7 @@ class Transaction_list {
         void sortByDateReverse() const;
         void sortByAmount() const;
         void sortByAmountReverse() const;
+        void sortByCategory() const;
 
     private:
         int size = 0;
