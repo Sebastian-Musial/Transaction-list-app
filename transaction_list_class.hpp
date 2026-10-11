@@ -71,6 +71,9 @@ class Transaction_list {
         void sortByAmountReverse() const;
         void sortByCategory() const;
 
+    //Filter
+        void filterByDate(std::string date_1, std::string date_2) const;
+
     private:
         int size = 0;
         std::vector<Transaction> list {}; 

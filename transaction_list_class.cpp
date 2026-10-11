@@ -1,4 +1,6 @@
 #include <string>
+#include <utility>
+#include <algorithm>
 #include "transaction_list_class.hpp"
 
 
@@ -9,17 +11,22 @@ void Transaction_list::sortByDate() const {
         return;
     }
 
-    for(int i = 0; i < list.size(); i++) {
-        std::string min = list[i].getdate();
+    std::vector<Transaction> tempList = list;
+
+    for(int i = 0; i < tempList.size(); i++) {
+        std::string min = tempList[i].getdate();
         int minIndex = i;
-        for(int x = i + 1; x < list.size(); x++) {
-            if(min > list[x].getdate()) {
-                min = list[x].getdate();
+        for(int x = i + 1; x < tempList.size(); x++) {
+            if(min > tempList[x].getdate()) {
+                min = tempList[x].getdate();
                 minIndex = x;
             }
         }
-        std::cout<<minIndex<<" | ";
-        list[minIndex].showTransaction();
+
+        std::swap(tempList[i], tempList[minIndex]);
+
+        std::cout<<i<<" | ";
+        tempList[i].showTransaction();
         std::cout<<"\n";
     }
 }
@@ -29,17 +36,22 @@ void Transaction_list::sortByDateReverse() const {
         return;
     }
 
-    for(int i = 0; i < list.size(); i++) {
-        std::string max = list[i].getdate();
+    std::vector<Transaction> tempList = list;
+
+    for(int i = 0; i < tempList.size(); i++) {
+        std::string max = tempList[i].getdate();
         int maxIndex = i;
-        for(int x = i + 1; x < list.size(); x++) {
-            if(max < list[x].getdate()) {
-                max = list[x].getdate();
+        for(int x = i + 1; x < tempList.size(); x++) {
+            if(max < tempList[x].getdate()) {
+                max = tempList[x].getdate();
                 maxIndex = x;
             }
         }
-        std::cout<<maxIndex<<" | ";
-        list[maxIndex].showTransaction();
+
+        std::swap(tempList[i], tempList[maxIndex]);
+
+        std::cout<<i<<" | ";
+        list[i].showTransaction();
         std::cout<<"\n";
     }
 }
@@ -50,17 +62,22 @@ void Transaction_list::sortByAmount() const {
         return;
     }
 
-    for(int i = 0; i < list.size(); i++) {
-        double min = list[i].getAmount();
+    std::vector<Transaction> tempList = list;
+
+    for(int i = 0; i < tempList.size(); i++) {
+        double min = tempList[i].getAmount();
         int minIndex = i;
-        for(int x = i + 1; x < list.size(); x++) {
-            if(min > list[x].getAmount()) {
-                min = list[x].getAmount();
+        for(int x = i + 1; x < tempList.size(); x++) {
+            if(min > tempList[x].getAmount()) {
+                min = tempList [x].getAmount();
                 minIndex = x;
             }
         }
-        std::cout<<minIndex<<" | ";
-        list[minIndex].showTransaction();
+
+        std::swap(tempList[i], tempList[minIndex]);
+
+        std::cout<<i<<" | ";
+        list[i].showTransaction();
         std::cout<<"\n";
     }
 }
@@ -70,17 +87,22 @@ void Transaction_list::sortByAmountReverse() const {
         return;
     }
 
-    for(int i = 0; i < list.size(); i++) {
-        double max = list[i].getAmount();
+    std::vector<Transaction> tempList = list;
+
+    for(int i = 0; i < tempList.size(); i++) {
+        double max = tempList[i].getAmount();
         int maxIndex = i;
-        for(int x = i + 1; x < list.size(); x++) {
-            if(max < list[x].getAmount()) {
-                max = list[x].getAmount();
+        for(int x = i + 1; x < tempList.size(); x++) {
+            if(max < tempList[x].getAmount()) {
+                max = tempList[x].getAmount();
                 maxIndex = x;
             }
         }
-        std::cout<<maxIndex<<" | ";
-        list[maxIndex].showTransaction();
+
+        std::swap(tempList[i], tempList[maxIndex]);
+
+        std::cout<<i<<" | ";
+        list[i].showTransaction();
         std::cout<<"\n";
     }
 }
@@ -115,6 +137,48 @@ void Transaction_list::sortByCategory() const {
                 list[x].showTransaction();
                 std::cout<<"\n";
             }
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////
+
+void Transaction_list::filterByDate(std::string date_1, std::string date_2) const {
+    if(list.size() == 0) {
+        std::cout<<"Lista jest pusta"<<std::endl;
+        return;
+    }
+    
+    std::string earlierDate;
+    std::string laterDate;
+    std::vector<Transaction> tempList = list;
+
+    if(date_1 > date_2) {
+        earlierDate = date_2;
+        laterDate = date_1;
+    }
+    else {
+        earlierDate = date_1;
+        laterDate = date_2;
+    }
+
+    for(int i = 0; i < tempList.size(); i++) {
+        std::string min = tempList[i].getdate();
+        int minIndex = i;
+
+        for(int x = i + 1; x < tempList.size(); x++) {
+            if(min > tempList[x].getdate()) {
+                min = tempList[x].getdate();
+                minIndex = x;
+            }
+        }
+
+        std::swap(tempList[i], tempList[minIndex]);
+
+        if(tempList[i].getdate() >= earlierDate && tempList[i].getdate() <= laterDate) {
+            std::cout<<i<<" | ";
+            tempList[i].showTransaction();
+            std::cout<<"\n";
         }
     }
 }
