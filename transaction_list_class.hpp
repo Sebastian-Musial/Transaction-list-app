@@ -64,6 +64,10 @@ class Transaction_list {
             list[i].modifyTransaction(T_name, T_amount, T_date, T_category);
         }
 
+    //Sort
+        void sortByDate() const;
+        void sortByDateReverse() const;
+
     private:
         int size = 0;
         std::vector<Transaction> list {}; 
