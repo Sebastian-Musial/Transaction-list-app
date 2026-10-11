@@ -182,3 +182,13 @@ void Transaction_list::filterByDate(std::string date_1, std::string date_2) cons
         }
     }
 }
+
+void Transaction_list::filterByCategory(std::string T_category) const {
+    for(int i = 0; i < list.size(); i++) {
+        if(list[i].getCategory() == T_category) {
+            std::cout<<i<<" | ";
+            list[i].showTransaction();
+            std::cout<<"\n";
+        }
+    }
+}

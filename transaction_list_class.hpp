@@ -73,6 +73,7 @@ class Transaction_list {
 
     //Filter
         void filterByDate(std::string date_1, std::string date_2) const;
+        void filterByCategory(std::string T_category) const;
 
     private:
         int size = 0;
