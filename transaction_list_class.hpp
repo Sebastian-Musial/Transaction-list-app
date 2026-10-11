@@ -75,6 +75,13 @@ class Transaction_list {
         void filterByDate(std::string date_1, std::string date_2) const;
         void filterByCategory(std::string T_category) const;
 
+    //Aggregations
+        void sumOfAllTransactions() const;
+        void sumOfAllTransactionsInOneCategory(std::string T_category) const;
+        void sumOfAllTransactionsInCategories() const;
+        void MinAmount() const;
+        void MaxAmount() const;
+
     private:
         int size = 0;
         std::vector<Transaction> list {}; 
