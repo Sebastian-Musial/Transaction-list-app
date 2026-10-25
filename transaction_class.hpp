@@ -9,6 +9,7 @@ class Transaction {
         enum class Errors {
             Transaction_Validation_Error
         };
+        Transaction() = default;
         Transaction(std::string T_name, double T_amount, std::string T_date, std::string T_category) {
             if(!transactionValidation(T_name, std::to_string(T_amount), T_date, T_category)) {
                 throw Errors::Transaction_Validation_Error;
@@ -96,8 +97,8 @@ class Transaction {
         }
 
         //Valid
-        bool transactionValidation(std::string T_name, std::string T_amount, std::string T_date, std::string T_category);
-        bool dateValidation(std::string T_date);
+        static bool transactionValidation(const std::string T_name, const std::string T_amount, const std::string T_date, const std::string T_category);
+        static bool dateValidation(const std::string T_date);
 
     private:
         std::string name;
