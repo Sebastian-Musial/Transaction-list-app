@@ -6,40 +6,40 @@
 
 bool test_transaction() {
     bool Test_pass = true;
-    Transaction test_tab[6] {};
+    Transaction test_tab[3] {};
 
     //Correct trsansaction
     try {
-        test_tab[0] = Transaction("N_test", "0.01", "25-10-2026", "");
+        test_tab[0] = Transaction("N_test", "0.01", "2026-10-25", "");
     }
     catch (Transaction::Errors error) {
-        std::cout<<"Blad dla: [\"N_test\", \"0.01\", \"25-10-2026\", \"\"]"
-            "\nError for: [\"N_test\", \"0.01\", \"25-10-2026\", \"\"]"<<std::endl;
+        std::cout<<"Blad dla: [\"N_test\", \"0.01\", \"2026-10-25\", \"\"]"
+            "\nError for: [\"N_test\", \"0.01\", \"2026-10-25\", \"\"]"<<std::endl;
         Test_pass = false;
     }
 
     try {
-        test_tab[1] = Transaction("N_test", "100", "25-10-2026", "C_test");
+        test_tab[1] = Transaction("N_test", "100", "2026-10-25", "C_test");
     }
     catch (Transaction::Errors error) {
-        std::cout<<"Blad dla: [\"N_test\", \"100\", \"25-10-2026\", \"C_test\"]"
-            "\nError for: [\"N_test\", \"100\", \"25-10-2026\", \"C_test\"]"<<std::endl;
+        std::cout<<"Blad dla: [\"N_test\", \"100\", \"2026-10-25\", \"C_test\"]"
+            "\nError for: [\"N_test\", \"100\", \"2026-10-25\", \"C_test\"]"<<std::endl;
         Test_pass = false;
     }
 
     try {
-        test_tab[2] = Transaction("N_test", "100.123", "25-10-2026", "");
+        test_tab[2] = Transaction("N_test", "100.12", "2026-10-25", "");
     }
     catch (Transaction::Errors error) {
-        std::cout<<"Blad dla: [\"N_test\", \"100.123\", \"25-10-2026\", \"\"]"
-            "\nError for: [\"N_test\", \"100.123\", \"25-10-2026\", \"\"]"<<std::endl;
+        std::cout<<"Blad dla: [\"N_test\", \"100.123\", \"2026-10-25\", \"\"]"
+            "\nError for: [\"N_test\", \"100.123\", \"2026-10-25\", \"\"]"<<std::endl;
         Test_pass = false;
     }
 
     //Incorrect transaction
     int correct_test = 0;
     try {
-        test_tab[3] = Transaction("N_test", "100", "", "");
+        Transaction("N_test", "100", "", "");
     }
     catch (Transaction::Errors error) {
         correct_test++;
@@ -47,7 +47,7 @@ bool test_transaction() {
     }
 
     try {
-        test_tab[4] = Transaction("N_test", "", "25-10-2026", "");
+        Transaction("N_test", "", "2026-10-25", "");
     }
     catch (Transaction::Errors error) {
         correct_test++;
@@ -55,14 +55,23 @@ bool test_transaction() {
     }
 
     try {
-        test_tab[5] = Transaction("N_test", "0", "25-10-2026", "C_test");
+        Transaction("N_test", "0", "2026-10-25", "C_test");
     }
     catch (Transaction::Errors error) {
         correct_test++;
         std::cout<<"wyjatek zlapany"<<std::endl;
     }
 
-    if(correct_test != 3) Test_pass = false;
+    try {
+        Transaction("N_test", "100.123", "2026-10-25", "");
+    }
+    catch (Transaction::Errors error) {
+        correct_test++;
+        std::cout<<"wyjatek zlapany"<<std::endl;
+    }
+
+    std::cout<<"Corect = "<<correct_test<<std::endl;
+    if(correct_test != 4) Test_pass = false;
 
     if(Test_pass == false) return Test_pass;
 
@@ -73,9 +82,9 @@ bool test_transaction() {
         test_tab[i].showTransaction();
     }
 
-    test_tab[0].modifyTransaction("Modfify_1", "1234", "25-10-2026", "Modify");
-    test_tab[1].modifyTransaction("Modfify_2", 2133, "25-10-2026", "Modify");
-    test_tab[2].modifyTransaction("Modfify_3", "1234", "25-10-2026", "Modify");
+    test_tab[0].modifyTransaction("Modfify_1", "1234", "2026-10-25", "Modify");
+    test_tab[1].modifyTransaction("Modfify_2", 2133, "2026-10-25", "Modify");
+    test_tab[2].modifyTransaction("Modfify_3", "1234", "2026-10-25", "Modify");
 
     std::cout<<"Transakcje po - Transactions after"<<std::endl;
 
@@ -98,12 +107,10 @@ bool test_transaction_valid() {
     std::vector<test_trx> test_bugs;
 
     test_trx test_tab_correct_transaction[] = {
-        {"N_test", "0.01", "25-10-2026", ""},
-        {"N_test", "100", "25-10-2026", "" },
-        {"N_test", "100", "25-10-2026", "C_test"}, 
-        {"N_test", "0.01", "25-10-2026", "C_test"},
-        {"N_test", "100.123", "25-10-2026", "C_test"},
-        {"N_test", "100.123", "25-10-2026", ""},
+        {"N_test", "0.01", "2026-10-25", ""},
+        {"N_test", "100", "2026-10-25", "" },
+        {"N_test", "100", "2026-10-25", "C_test"}, 
+        {"N_test", "0.01", "2026-10-25", "C_test"},
     };
 
     test_trx test_tab_wrong_transaction[] = {
@@ -111,14 +118,16 @@ bool test_transaction_valid() {
         {"N_test", "", "", ""},
         {"", "100", "", ""},
         {"", "", "", "C_test"},
-        {"", "", "25-10-2026", ""},
+        {"", "", "2026-10-25", ""},
         {"N_test", "100", "", ""},
-        {"N_test", "", "25-10-2026", ""},
-        {"", "100", "25-10-2026", ""},
-        {"N_test", "-100", "25-10-2026", "C_test"},
-        {"N_test", "0", "25-10-2026", "C_test"},
-        {"N_test", "-100", "25-10-2026", ""},
-        {"N_test", "0", "25-10-2026", ""},
+        {"N_test", "", "2026-10-25", ""},
+        {"", "100", "2026-10-25", ""},
+        {"N_test", "-100", "2026-10-25", "C_test"},
+        {"N_test", "0", "2026-10-25", "C_test"},
+        {"N_test", "-100", "2026-10-25", ""},
+        {"N_test", "0", "2026-10-25", ""},
+        {"N_test", "100.123", "2026-10-25", "C_test"},
+        {"N_test", "100.123", "2026-10-25", ""}
     };
 
     for(test_trx X : test_tab_correct_transaction) {
@@ -171,13 +180,13 @@ bool test_date_valid() {
         {"2025-06-31"},
         {"2025-09-31"},
         {"2025-11-31"},
-        {"2025-02-29"},
+        {"2025-02-29"}, 
         {"2024-02-30"},
         {"2023-02-30"},
         //Lata przestępne - Leap years
         {"2023-02-29"}, 
         {"1900-02-29"}, 
-        {"2100-02-29"}, 
+        {"2100-02-29"},  
         //Niepoprawne miesiące - Not correct months 
         {"2025-00-15"}, 
         {"2025-13-15"}, 
@@ -214,12 +223,14 @@ bool test_date_valid() {
 
     for(std::string X : test_tab_correct_date) {
         if(!Transaction::dateValidation(X)) {
+            std::cout<<X<<std::endl;
             test_bugs.push_back(X);
         }
     }
 
     for(std::string X : test_tab_wrong_date) {
         if(Transaction::dateValidation(X)) {
+            std::cout<<X<<std::endl;
             test_bugs.push_back(X);
         }
     }

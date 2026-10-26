@@ -84,6 +84,17 @@ class Transaction {
             category = T_category;
             std::cout<<"TRANSAKCJA ZOSTALA ZMODYFIKOWANA - TRANSACTION IS MODIFY"<<std::endl;
         }
+        void modifyTransaction(std::string T_name, int T_amount, std::string T_date, std::string T_category) {
+            if(!transactionValidation(T_name, std::to_string(T_amount), T_date, T_category)) {
+                std::cout<<"TRANSAKCJA NIE ZOSTALA ZMODYFIKOWANA - TRANSACTION IS NOT MODIFY"<<std::endl;
+                return;
+            }
+            name = T_name;
+            amount = T_amount;
+            date = T_date;
+            category = T_category;
+            std::cout<<"TRANSAKCJA ZOSTALA ZMODYFIKOWANA - TRANSACTION IS MODIFY"<<std::endl;
+        }
         void modifyTransaction(std::string T_name, std::string T_amount, std::string T_date, std::string T_category) {
             if(!transactionValidation(T_name, T_amount, T_date, T_category)) {
                 std::cout<<"TRANSAKCJA NIE ZOSTALA ZMODYFIKOWANA - TRANSACTION IS NOT MODIFY"<<std::endl;

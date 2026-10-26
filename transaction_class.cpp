@@ -5,6 +5,7 @@
 bool Transaction::transactionValidation(std::string T_name, std::string T_amount, std::string T_date, std::string T_category) {
     for(int i = 0; i < T_amount.size(); i++) {
         if(T_amount[i] < '0' || T_amount[i] > '9') {
+            if(T_amount.size()-3 == i) continue;
             std::cout<<"Podana kwota jest niepoprawna - Amount is not correct"<<std::endl;
             return false;
         }
@@ -18,7 +19,7 @@ bool Transaction::transactionValidation(std::string T_name, std::string T_amount
         std::cout<<"Nazwa transakcji jest za dluga (Rozmiar nazwy > 26)- Transaction name is too long (Name size > 26)"<<std::endl;
         return false;   
     }
-    if( std::stod(T_amount) <= 0 ) {
+    if( T_amount == "" || std::stod(T_amount) <= 0 ) {
         std::cout<<"Kwota transakcji jest za mala (Kwota <= 0) - Transaction amount is too small (Amount <= 0)"<<std::endl;
         return false;
     }
@@ -26,7 +27,7 @@ bool Transaction::transactionValidation(std::string T_name, std::string T_amount
         std::cout<<"Podana kwota jest za duza (>1000000.00) - Amount is to big (>1000000.00)"<<std::endl;
         return false;
     }
-    if(!dateValidation); //In function we have cout
+    if(!dateValidation(T_date)) return false;
     if(T_category.size() > 26) {
         std::cout<<"Kategoria transakcji jest za dluga (Rozmiar nazwy kategori > 26)- Transaction category name is too long (Category name size > 26)"<<std::endl;
         return false;   
@@ -36,7 +37,7 @@ bool Transaction::transactionValidation(std::string T_name, std::string T_amount
 
 bool Transaction::dateValidation(std::string T_date) {
     //YYYY-MM-DD
-    bool leapYear;
+    bool leapYear = false;
     int daysInMonth[] = {
         31, 28, 31, 30, 31, 30,
         31, 31, 30, 31, 30, 31
@@ -78,7 +79,7 @@ bool Transaction::dateValidation(std::string T_date) {
 
     int month = std::stoi(T_date.substr(5, 2));
 
-    if (leapYear && month == 1) {
+    if (leapYear && month == 2) {
         if( std::stoi(T_date.substr(8, 2)) < 1 || std::stoi(T_date.substr(8, 2)) > 29 ) {
             std::cout<<"W roku przystepnym luty ma 29 dni - In leap year, february has 29 days"<<std::endl;
             std::cout<<"Bledny dzien - Wrong day"<<std::endl;
