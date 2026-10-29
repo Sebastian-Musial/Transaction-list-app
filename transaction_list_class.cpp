@@ -38,7 +38,7 @@ void Transaction_list::sortByDateReverse() const {
 
     std::vector<Transaction> tempList = list;
 
-    for(int i = 0; i < tempList.size(); i++) {
+    for(int i = 0; i < tempList.size(); i++) { 
         std::string max = tempList[i].getdate();
         int maxIndex = i;
         for(int x = i + 1; x < tempList.size(); x++) {
@@ -51,7 +51,7 @@ void Transaction_list::sortByDateReverse() const {
         std::swap(tempList[i], tempList[maxIndex]);
 
         std::cout<<i<<" | ";
-        list[i].showTransaction();
+        tempList[i].showTransaction();
         std::cout<<"\n";
     }
 }
@@ -64,7 +64,7 @@ void Transaction_list::sortByAmount() const {
 
     std::vector<Transaction> tempList = list;
 
-    for(int i = 0; i < tempList.size(); i++) {
+    for(int i = 0; i < tempList.size(); i++) {  
         double min = tempList[i].getAmount();
         int minIndex = i;
         for(int x = i + 1; x < tempList.size(); x++) {
@@ -77,11 +77,11 @@ void Transaction_list::sortByAmount() const {
         std::swap(tempList[i], tempList[minIndex]);
 
         std::cout<<i<<" | ";
-        list[i].showTransaction();
+        tempList[i].showTransaction();
         std::cout<<"\n";
     }
 }
-void Transaction_list::sortByAmountReverse() const {
+void Transaction_list::sortByAmountReverse() const {    
     if(list.size() == 0) {
         std::cout<<"Lista jest pusta"<<std::endl;
         return;
@@ -102,7 +102,7 @@ void Transaction_list::sortByAmountReverse() const {
         std::swap(tempList[i], tempList[maxIndex]);
 
         std::cout<<i<<" | ";
-        list[i].showTransaction();
+        tempList[i].showTransaction();
         std::cout<<"\n";
     }
 }
@@ -183,7 +183,7 @@ void Transaction_list::filterByDate(std::string date_1, std::string date_2) cons
     }
 }
 
-void Transaction_list::filterByCategory(std::string T_category) const {
+void Transaction_list::filterByCategory(std::string T_category) const { 
     if(list.size() == 0) {
         std::cout<<"Lista jest pusta"<<std::endl;
         return;
